@@ -1,0 +1,5 @@
+pip.ini
+Taller1/mnist/mnist_train.csv
+Taller1/mnist/mnist_test.csv
+__pycache__/
+/Taller3/http_question_answering/question_answering/q_a/ml_models/GIST-Embedding.pkl

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Digit Image Upload</title>
+</head>
+<body>
+<h1>Upload a Digit Image</h1>
+<p>Please upload a squared image of a digit. Only ones or eights are allowed.</p>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+</form>
+
+{% if image %}
+<img style='display:block; width:100px;height:100px;' src="{{image}}"/>
+{% endif %}
+{% if result %}
+{{ result }}
+{% endif %}
+</body>
+</html>
