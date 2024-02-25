@@ -3,18 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <title>Text Embedding</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .column {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .left-column {
+            background-color: #f0f0f0;
+        }
+
+        .right-column {
+            background-color: #e0e0e0;
+        }
+
+        .styled-paragraph {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
 <h1>Question answering</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Send question</button>
-</form>
+<div class="container">
+    <div class="column left-column">
+        {% if text is not None %}
+        <div class="styled-paragraph">
+            {% for paragraph in text %}
+                {% if forloop.counter == 1 %}
+                    <h2>{{ paragraph }}</h2>
+                {% else %}
+                    <p>{{ paragraph }}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    <div class="column right-column">
+        <h2>Question</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Send question</button>
+        </form>
+
+        {% if question %}
+        <div class="styled-paragraph">
+            <h2>Your question</h2>
+            <p>{{ question }}</p>
+        </div>
+
+        {% endif %}
+        {% if most_related is not None %}
+        <div class="styled-paragraph">
+            <h2>The most related paragraphs in the left text related to your question are:</h2>
+            {% for related in most_related %}
+                <p><strong>{{ forloop.counter }}. </strong> {{ related }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
 
 
-{% if question %}
-{{ question }}
-{% endif %}
 </body>
 </html>
