@@ -14,5 +14,5 @@ class MyFormView(FormView):
         question = form.cleaned_data['question']
         context['question'] = f'Your question: {question}'
         top_3_related_paragraphs = get_most_related_paragraphs(EMBEDDING_MODEL, TEXT_BASE, question)
-        print(top_3_related_paragraphs)
+        context['more'] = f'Your question: {question}'
         return self.render_to_response(context=context)
